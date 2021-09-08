@@ -1,6 +1,6 @@
 import random as rnd
 import prettytable
-POPULATION_SIZE = 15
+POPULATION_SIZE = 10
 NUMB_OF_ELITE_SCHEDULES = 1
 TOURNAMENT_SELECTION_SIZE = 3
 MUTATION_RATE = 0.1
@@ -230,14 +230,14 @@ class Schudela:
 
             for j in range(len(classes)):
                 if (j >= i):
-                    if(classes[i].get_meetingTime()==classes[j].get_meetingTime and classes[i].get_id() != classes[j].get_id()):
+                    if(classes[i].get_meetingTime()==classes[j].get_meetingTime() and classes[i].get_id() != classes[j].get_id()):
                         if (classes[i].get_room() == classes[j].get_room()):
                             self._numOfConflicts += 1
 
                         if (classes[i].get_instructor() == classes[j].get_instructor()):
                             self._numOfConflicts += 1
                         
-        return 1 / ((1.0 * self._numOfConflicts + 1))
+        return 1 / (1.0 * (self._numOfConflicts + 1))
 
 
     def __str__(self) -> str:
@@ -424,7 +424,6 @@ geneticAlgorithm = GeneticAlgoritm()
 while (population.get_schudeles()[0].get_fitness() != 1.0):
     generation_number += 1
     print(generation_number)
+    display.display_generation(population)
     population = geneticAlgorithm.evolve(population)
     population.get_schudeles().sort(key=lambda x : x.get_fitness(), reverse=True)
-
-print(population.get_schudeles()[0].get_fitness())
